@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plane cards</title>
+<meta name="theme-color" content="#14123d">
+<meta http-equiv="refresh" content="4;url=https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0; overflow: hidden; color: #fff;
+    font-family: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif; line-height: 1.5;
+    background: linear-gradient(180deg, #14123d 0%, #3b2a85 38%, #a1458f 72%, #ec7b86 100%);
+  }
+  .scene { position: relative; height: 100%; display: grid; place-items: center; text-align: center; padding: 1.25rem; }
+
+  .stars { position: absolute; inset: 0; opacity: .7;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 20%, #fff, transparent), radial-gradient(1px 1px at 30% 55%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 52% 14%, #fff, transparent), radial-gradient(1px 1px at 68% 40%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 85% 18%, #fff, transparent), radial-gradient(1px 1px at 92% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 20% 80%, #fff, transparent), radial-gradient(1px 1px at 76% 85%, #fff, transparent); }
+
+  /* sun, tucked behind the hills */
+  .sunbox { --hr: clamp(100px, 17vw, 200px); position: absolute; inset: 0; pointer-events: none;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath d='M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V0 H0 Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath d='M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V0 H0 Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+    -webkit-mask-size: 100% var(--hr), 100% calc(100% - var(--hr) + 2px); mask-size: 100% var(--hr), 100% calc(100% - var(--hr) + 2px);
+    -webkit-mask-position: left bottom, left top; mask-position: left bottom, left top;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+  .sun { position: absolute; left: 68%; bottom: 0; width: clamp(150px, 22vw, 240px); aspect-ratio: 1; transform: translateX(-50%); }
+  .sun i { position: absolute; display: block; }
+  .sun .glow { inset: -90%; background: radial-gradient(circle, rgba(255,196,140,.55) 0%, rgba(255,120,160,.2) 38%, transparent 66%); }
+  .sun .disc { inset: 0; border-radius: 50%; background: linear-gradient(180deg, #fff3c9 0%, #ffc47f 48%, #ff7d9d 100%); }
+
+  .ridge { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(100px, 17vw, 200px); pointer-events: none;
+    -webkit-mask-image: linear-gradient(#000 55%, transparent 98%); mask-image: linear-gradient(#000 55%, transparent 98%); }
+  .ridge.back path { fill: #7a55c4; opacity: .42; }
+  .ridge.front path { fill: #261a6b; opacity: .9; }
+
+  h1 { position: relative; z-index: 2; margin: 0 0 4rem; font-size: clamp(2.4rem, 8vw, 5.5rem); font-weight: 800; line-height: 1; letter-spacing: -.03em;
+    background: linear-gradient(95deg, #fff 30%, #ffd2a6 70%, #ff9fb8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  @media (prefers-reduced-motion: no-preference) {
+    h1 { animation: in 1s cubic-bezier(.2,.9,.2,1) backwards; }
+    @keyframes in { from { opacity: 0; translate: 0 24px; } }
+  }
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="stars" aria-hidden="true"></div>
+  <div class="sunbox" aria-hidden="true"><div class="sun"><i class="glow"></i><i class="disc"></i></div></div>
+  <svg class="ridge back" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V200 H0Z"/></svg>
+  <svg class="ridge front" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true"><path d="M0 150 C120 118 200 162 320 138 S520 108 640 142 S860 170 980 134 S1230 106 1440 146 V200 H0Z"/></svg>
+  <h1>Told you it was under construction</h1>
+</div>
+<script>
+  setTimeout(function () { location.replace('https://www.youtube.com/watch?v=dQw4w9WgXcQ'); }, 3500);
+</script>
+</body>
+</html>
