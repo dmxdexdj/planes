@@ -142,13 +142,6 @@
   /* cards */
   .card { position: relative; overflow: hidden; background: rgba(20,16,60,.6);
     transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-  .card::before { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .25s ease;
-    background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.2), transparent 62%); }
-  .card:not(.soon):hover::before { opacity: 1; }
-  .card.live::before { background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), rgba(255,255,255,.5), transparent 62%); }
-  .card.live::after { content: ""; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; pointer-events: none;
-    background: linear-gradient(105deg, transparent, rgba(255,255,255,.45), transparent); transform: skewX(-18deg); translate: -120% 0; transition: translate .9s ease; }
-  .card.live:hover::after { translate: 520% 0; }
 
   /* one-time reveal */
   .rv-js .rv:not(.in) { opacity: 0; }
@@ -167,7 +160,6 @@
     html { scroll-behavior: auto; }
     .stars i { animation: none; opacity: .6; }
     .far, .shoot { display: none; }
-    .card.live::after { display: none; }
   }
 
   /* ---------- caution tape gate ---------- */
@@ -197,18 +189,45 @@
     box-shadow: 4px 4px 0 #111; transition: transform .12s ease, box-shadow .12s ease; }
   .cbtn:hover { transform: translate(-1px, -2px); box-shadow: 5px 6px 0 #111; }
   .cbtn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #111; }
-  .cbtn.go { background: #FFD21F; } .cbtn.back { background: #fff; }
-  .cdialog :focus-visible { outline: 3px solid #111; outline-offset: 3px; }
+  .cbtn { -webkit-appearance: none; appearance: none; background-clip: padding-box; background-origin: padding-box; backface-visibility: hidden; }
+  .cbtn.go { background-color: #FFD21F; } .cbtn.back { background-color: #fff; }
+  .cdialog:focus { outline: none; }
+  .cbtn:focus-visible { outline: 3px dashed #111; outline-offset: 6px; border-radius: 14px; }
   @media (prefers-reduced-motion: reduce) {
     .tape .run { animation: none; } #caution, .tape, .cbtn { transition: none; }
   }
+
+  /* ---------- themed scrollbar ---------- */
+  html { background: #14123d; }
+  ::-webkit-scrollbar { width: 14px; height: 14px; }
+  ::-webkit-scrollbar-track { background: #14123d; border-left: 1px solid rgba(255,255,255,.08); }
+  ::-webkit-scrollbar-thumb { border-radius: 999px; border: 3px solid #14123d; background-clip: padding-box;
+    background-image: linear-gradient(180deg, #c58bff 0%, #ff9fb8 55%, #ffb77a 100%); min-height: 48px; }
+  ::-webkit-scrollbar-thumb:hover { border-width: 2px; }
+  ::-webkit-scrollbar-corner { background: #14123d; }
+  @supports (-moz-appearance: none) { html { scrollbar-width: thin; scrollbar-color: #ff9fb8 #14123d; } }
+
+  /* ---------- use the empty side space on wide screens ---------- */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1160px; padding: 0 2.5rem; }
+    .grid { grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
+    .card.live { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: 1.5rem; padding: 1.6rem 2rem; }
+    .card.live .emoji { font-size: 3rem; margin: 0; grid-row: 1 / 3; }
+    .card.live .status { display: none; }
+    .card.live h3 { font-size: 1.6rem; }
+    .card.live p { max-width: 60ch; }
+    .card.soon { display: flex; flex-direction: column; }
+    .card.soon .status { margin-top: auto; padding-top: .7rem; }
+    .lede { max-width: 44ch; font-size: 1.35rem; }
+  }
+  @media (min-width: 1000px) and (max-width: 1099px) { .card h3 { font-size: 1.15rem; } }
 </style>
 </head>
 <body>
 <div id="caution" role="dialog" aria-modal="true" aria-labelledby="caution-title" aria-describedby="caution-desc">
   <div class="tape t1" aria-hidden="true"><div class="run"><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span></div></div>
   <div class="tape t2" aria-hidden="true"><div class="run"><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; This site is nowhere near finished &#9888;&#xFE0E; Would you like to continue?</span></div></div>
-  <div class="cdialog">
+  <div class="cdialog" id="c-box" tabindex="-1">
     <div class="cemoji" aria-hidden="true">🚧</div>
     <h2 id="caution-title">Proceed with caution?</h2>
     <p id="caution-desc">This site is nowhere near finished. Would you like to continue?</p>
@@ -371,14 +390,6 @@
       }, { passive: true });
     }
 
-    /* card spotlight follows the pointer */
-    document.querySelectorAll('.card').forEach(function (c) {
-      c.addEventListener('pointermove', function (e) {
-        var b = c.getBoundingClientRect();
-        c.style.setProperty('--mx', (e.clientX - b.left) + 'px'); c.style.setProperty('--my', (e.clientY - b.top) + 'px');
-      });
-    });
-
     /* reveal the whole picker block once, as one piece */
     if (!calm && 'IntersectionObserver' in window) {
       var items = [].slice.call(document.querySelectorAll('main > h2, main > .sub, main .grid .card')), shown = false;
@@ -411,7 +422,7 @@
     }
     pace(); if (document.fonts && document.fonts.ready) document.fonts.ready.then(pace);
     others.forEach(function (el) { el.inert = true; });
-    go.focus();
+    document.getElementById('c-box').focus();
     go.addEventListener('click', function () {
       root.classList.remove('caution-lock');
       others.forEach(function (el) { el.inert = false; });
