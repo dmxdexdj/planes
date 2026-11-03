@@ -226,7 +226,7 @@
   .sunbox { --hr: clamp(100px, 17vw, 200px); position: absolute; inset: 0; pointer-events: none;
     -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath d='M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V0 H0 Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
             mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath d='M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V0 H0 Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
-    -webkit-mask-size: 100% var(--hr), 100% calc(100% - var(--hr)); mask-size: 100% var(--hr), 100% calc(100% - var(--hr));
+    -webkit-mask-size: 100% var(--hr), 100% calc(100% - var(--hr) + 2px); mask-size: 100% var(--hr), 100% calc(100% - var(--hr) + 2px);
     -webkit-mask-position: left bottom, left top; mask-position: left bottom, left top;
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
   .sunbox .sun { bottom: 0; }
@@ -271,7 +271,7 @@
   <h2>Pick where to start</h2>
   <p class="sub">Plane cards are open. The rest are on the way.</p>
   <div class="grid">
-    <a class="card live" href="planecards.html">
+    <a class="card live" href="/planecards">
       <span class="emoji" aria-hidden="true">✈️</span>
       <h3>Plane cards</h3>
       <p>Flip through famous aircraft like Concorde, the SR-71, and the 747, with specs and fun facts.</p>
