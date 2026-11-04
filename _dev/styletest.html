@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!--
+  SITE STYLE RULES
+  - Hub pages (like index.html) use the full hero background: long sky gradient, drifting clouds, parallax, big title.
+  - Every NON-hub page uses THIS page's background as its main background: the fixed one-screen sunset
+    (sky gradient, stars, sun tucked behind the smooth hills, hills fading out at the bottom).
+    Copy the .bg block (CSS + markup) from this file or from planecards.html.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Style test</title>
+<meta name="theme-color" content="#14123d">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html { background: #14123d; scroll-behavior: smooth; }
+  body { margin: 0; min-height: 100vh; color: #fff; font-family: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif; line-height: 1.5; }
+
+  /* ---------- background (same as the redirect page, fixed behind the content) ---------- */
+  .bg { position: fixed; inset: 0; z-index: -1; background: linear-gradient(180deg, #14123d 0%, #3b2a85 38%, #a1458f 72%, #ec7b86 100%); overflow: hidden; }
+  .stars { position: absolute; inset: 0; opacity: .7;
+    background-image:
+      radial-gradient(1.5px 1.5px at 12% 20%, #fff, transparent), radial-gradient(1px 1px at 30% 55%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 52% 14%, #fff, transparent), radial-gradient(1px 1px at 68% 40%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 85% 18%, #fff, transparent), radial-gradient(1px 1px at 92% 60%, #fff, transparent),
+      radial-gradient(1px 1px at 20% 80%, #fff, transparent), radial-gradient(1px 1px at 76% 85%, #fff, transparent); }
+  .sunbox { --hr: clamp(100px, 17vw, 200px); position: absolute; inset: 0; pointer-events: none;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath d='M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V0 H0 Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' preserveAspectRatio='none'%3E%3Cpath d='M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V0 H0 Z'/%3E%3C/svg%3E"), linear-gradient(#000, #000);
+    -webkit-mask-size: 100% var(--hr), 100% calc(100% - var(--hr) + 2px); mask-size: 100% var(--hr), 100% calc(100% - var(--hr) + 2px);
+    -webkit-mask-position: left bottom, left top; mask-position: left bottom, left top;
+    -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+  .sun { position: absolute; left: 68%; bottom: 0; width: clamp(150px, 22vw, 240px); aspect-ratio: 1; transform: translateX(-50%); }
+  .sun i { position: absolute; display: block; }
+  .sun .glow { inset: -90%; background: radial-gradient(circle, rgba(255,196,140,.55) 0%, rgba(255,120,160,.2) 38%, transparent 66%); }
+  .sun .disc { inset: 0; border-radius: 50%; background: linear-gradient(180deg, #fff3c9 0%, #ffc47f 48%, #ff7d9d 100%); }
+  .ridge { position: absolute; left: 0; bottom: -1px; width: 100%; height: clamp(100px, 17vw, 200px); pointer-events: none;
+    -webkit-mask-image: linear-gradient(#000 55%, transparent 98%); mask-image: linear-gradient(#000 55%, transparent 98%); }
+  .ridge.back path { fill: #7a55c4; opacity: .42; }
+  .ridge.front path { fill: #261a6b; opacity: .9; }
+
+  /* ---------- layout ---------- */
+  .wrap { max-width: 860px; margin: 0 auto; padding: 3rem 1.25rem 14rem; }
+  h1 { font-size: clamp(2.4rem, 8vw, 4.5rem); font-weight: 800; line-height: 1; letter-spacing: -.03em; margin: 0 0 .5rem;
+    background: linear-gradient(95deg, #fff 30%, #ffd2a6 70%, #ff9fb8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { margin: 0 0 2.5rem; color: #efe9ff; font-size: 1.15rem; }
+  h2 { font-size: 1.6rem; margin: 2.75rem 0 .25rem; letter-spacing: -.01em; }
+  .sub { margin: 0 0 1.1rem; color: #efe9ff; }
+  h2, .sub, .lede { text-shadow: 0 1px 14px rgba(20,16,60,.65); }
+  .panel { border-radius: 20px; padding: 1.4rem; border: 1px solid rgba(255,255,255,.22); background: rgba(20,16,60,.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+  .label { display: block; font-size: .85rem; font-weight: 700; color: #ffd8b8; margin: 0 0 .6rem; text-transform: uppercase; letter-spacing: .06em; }
+  .label:not(:first-child) { margin-top: 1.4rem; }
+  :focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+  /* ---------- chunky buttons (from the caution box) ---------- */
+  .cbtn { font: inherit; font-weight: 800; font-size: 1.05rem; padding: .75rem 1.3rem; border-radius: 14px; border: 3px solid #111; color: #111; cursor: pointer;
+    box-shadow: 4px 4px 0 #111; transition: transform .12s ease, box-shadow .12s ease; -webkit-appearance: none; appearance: none; background-clip: padding-box; }
+  .cbtn:hover { transform: translate(-1px, -2px); box-shadow: 5px 6px 0 #111; }
+  .cbtn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 #111; }
+  .cbtn:focus-visible { outline: 3px dashed #fff; outline-offset: 6px; border-radius: 14px; }
+  .cbtn.go { background-color: #FFD21F; } .cbtn.back { background-color: #fff; }
+  .cbtn.pink { background-color: #ff9fb8; } .cbtn.purple { background-color: #c58bff; }
+  .cbtn.small { font-size: .9rem; padding: .5rem .95rem; border-radius: 12px; }
+
+  /* ---------- grayed out ---------- */
+  .cbtn.off, .cbtn:disabled { filter: grayscale(1); opacity: .55; border-style: dashed; box-shadow: none; cursor: not-allowed; }
+  .cbtn.off:hover, .cbtn.off:active, .cbtn:disabled:hover { transform: none; box-shadow: none; }
+
+  /* ---------- cards ---------- */
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .card { display: block; width: 100%; text-align: left; font: inherit; color: inherit; text-decoration: none; position: relative; overflow: hidden;
+    border-radius: 20px; padding: 1.3rem 1.3rem 1.1rem; border: 1px solid rgba(255,255,255,.22); background: rgba(20,16,60,.6);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); transition: transform .25s ease, box-shadow .25s ease; }
+  .card .emoji { font-size: 2rem; line-height: 1; display: block; margin-bottom: .5rem; }
+  .card h3 { margin: 0; font-size: 1.3rem; } .card p { margin: .2rem 0 0; color: #e7e0fa; }
+  .status { display: inline-block; margin-top: .7rem; font-size: .9rem; font-weight: 700; }
+  .card.live { grid-column: 1 / -1; cursor: pointer; border: none; color: #2a1238; background: linear-gradient(120deg, #ffe0a8, #ff9fb8 55%, #c58bff); }
+  .card.live p { color: #4a2a5c; }
+  .card.live:hover, .card.live:focus-visible { transform: translateY(-5px) rotate(-.4deg); box-shadow: 0 16px 40px rgba(255,159,184,.4); }
+  .card.live:active { transform: scale(.985); }
+  .card.live .emoji { display: inline-block; transition: transform .35s cubic-bezier(.3,1.5,.5,1); }
+  .card.live:hover .emoji, .card.live:focus-visible .emoji { transform: translate(8px, -6px) rotate(8deg) scale(1.15); }
+  .card.soon { filter: grayscale(1); opacity: .72; border-style: dashed; cursor: not-allowed; }
+  .nudge { animation: nudge .35s ease; }
+  @keyframes nudge { 0%,100%{transform:none} 25%{transform:translateX(-6px)} 50%{transform:translateX(5px)} 75%{transform:translateX(-3px)} }
+
+  /* ---------- toast + swatches ---------- */
+  .toast { position: fixed; left: 50%; bottom: 1.25rem; z-index: 10; transform: translate(-50%, 20px); opacity: 0; pointer-events: none;
+    background: #fff; color: #2a1238; padding: .65rem 1.1rem; border-radius: 999px; font-weight: 700; font-size: .95rem; transition: opacity .25s ease, transform .25s ease; }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  .swatches { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .sw { width: 86px; font-size: .8rem; text-align: center; }
+  .sw b { display: block; height: 56px; border-radius: 14px; border: 2px solid rgba(255,255,255,.3); margin-bottom: .3rem; }
+
+  @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .cbtn, .card, .card.live .emoji, .toast { transition: none; } .nudge { animation: none; } }
+
+  /* ---------- themed scrollbar (same as the main page) ---------- */
+  ::-webkit-scrollbar { width: 14px; height: 14px; }
+  ::-webkit-scrollbar-track { background: #14123d; border-left: 1px solid rgba(255,255,255,.08); }
+  ::-webkit-scrollbar-thumb { border-radius: 999px; border: 3px solid #14123d; background-clip: padding-box;
+    background-image: linear-gradient(180deg, #c58bff 0%, #ff9fb8 55%, #ffb77a 100%); min-height: 48px; }
+  ::-webkit-scrollbar-thumb:hover { border-width: 2px; }
+  ::-webkit-scrollbar-corner { background: #14123d; }
+  @supports (-moz-appearance: none) { html, .scrollbox { scrollbar-width: thin; scrollbar-color: #ff9fb8 #14123d; } }
+  .scrollbox { height: 220px; overflow-y: auto; padding: 1.1rem 1.2rem; border-radius: 20px; border: 1px solid rgba(255,255,255,.22); background: rgba(20,16,60,.6); }
+  .scrollbox p { margin: 0 0 .9rem; color: #e7e0fa; }
+  .scrollbox p:last-child { margin: 0; }
+  pre.code { margin: 1rem 0 0; padding: 1rem 1.2rem; border-radius: 16px; background: rgba(8,6,28,.7); border: 1px solid rgba(255,255,255,.18);
+    font: .82rem/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace; color: #ffd8b8; overflow-x: auto; white-space: pre; }
+
+  /* ---------- title gradient (same as the main page) ---------- */
+  h1, .gradtext { background: linear-gradient(95deg, #fff 20%, #ffd2a6 45%, #ff9fb8 60%, #ffd2a6 75%, #fff 100%); background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  @keyframes shimmer { to { background-position: 100% 0; } }
+  @media (prefers-reduced-motion: no-preference) { h1, .gradtext { animation: shimmer 10s ease-in-out infinite alternate; } }
+  .gradtext { font-weight: 800; letter-spacing: -.03em; line-height: 1; margin: 0; font-size: clamp(2.2rem, 8vw, 4.2rem); }
+  .panel p.brand { font-weight: 600; opacity: .8; margin: 0; color: #fff; }
+  .tip { margin: 0; font-size: .95rem; color: #ffd8b8; }
+
+  /* ---------- boxes ---------- */
+  .boxes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; align-items: start; }
+  .panel h3 { margin: 0 0 .3rem; font-size: 1.3rem; }
+  .panel p { margin: 0; color: #e7e0fa; }
+  .cdialog { background: #fff; color: #2a1238; border: 4px solid #111; border-radius: 22px; padding: 1.4rem 1.6rem 1.5rem; text-align: center; box-shadow: 8px 8px 0 #111; }
+  .cdialog .cemoji { font-size: 2.6rem; line-height: 1; }
+  .cdialog h3 { margin: .5rem 0 .4rem; font-size: 1.5rem; }
+  .cdialog p { margin: 0 0 1.2rem; color: #4a2a5c; }
+  .cdialog .row { justify-content: center; }
+  .tape { position: relative; display: flex; align-items: center; overflow: hidden; height: 76px; margin-top: 1.25rem; background: #FFD21F; color: #111; rotate: -1.5deg; box-shadow: 0 10px 0 rgba(0,0,0,.35); }
+  .tape::before, .tape::after { content: ""; position: absolute; left: 0; right: 0; height: 12px; background: repeating-linear-gradient(135deg, #111 0 14px, #FFD21F 14px 28px); }
+  .tape::before { top: 0; } .tape::after { bottom: 0; }
+  .tape span { white-space: nowrap; padding: 0 1.2rem; font-weight: 800; font-size: 1.4rem; text-transform: uppercase; letter-spacing: .02em; }
+  @media (max-width: 700px) { .boxes { grid-template-columns: 1fr; } }
+
+  /* ---------- clouds + planes ---------- */
+  .skybox { position: relative; height: 240px; overflow: hidden; border-radius: 20px; border: 1px solid rgba(255,255,255,.22);
+    background: linear-gradient(180deg, #14123d 0%, #3b2a85 45%, #a1458f 100%); }
+  .skybox .stars { opacity: .6; }
+  .cloud { position: absolute; left: -240px; width: 200px; height: 56px; border-radius: 999px; background: rgba(255,255,255,.16); animation: boxdrift linear infinite; }
+  .cloud::before, .cloud::after { content: ""; position: absolute; border-radius: 50%; background: inherit; }
+  .cloud::before { width: 90px; height: 90px; left: 30px; bottom: 14px; }
+  .cloud::after { width: 64px; height: 64px; right: 28px; bottom: 12px; }
+  .c1 { top: 16%; animation-duration: 40s; animation-delay: -12s; }
+  .c2 { top: 50%; scale: .7; animation-duration: 55s; animation-delay: -30s; }
+  .c3 { top: 70%; scale: 1.1; animation-duration: 48s; animation-delay: -4s; }
+  .c4 { top: 34%; scale: .5; animation-duration: 70s; animation-delay: -45s; }
+  @keyframes boxdrift { from { translate: 0 0; } to { translate: 1400px 0; } }
+  .far { position: absolute; left: 0; display: flex; align-items: center; animation: boxfly 22s linear infinite; }
+  .far-plane { width: 45px; height: auto; overflow: visible; }
+  .far-trail { width: 260px; height: 1.5px; margin-right: -2px; background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.75)); }
+  @keyframes boxfly { from { translate: -340px 0; } to { translate: 1400px 0; } }
+  @media (prefers-reduced-motion: reduce) { .cloud, .far { animation: none; left: 30%; } .far { display: none; } }
+  .tag { display: inline-block; padding: .3rem .8rem; border-radius: 999px; font-size: .9rem; font-weight: 700; color: #2a1238; background: linear-gradient(120deg, #ffe0a8, #ff9fb8); }
+  code { font: .9em ui-monospace, Menlo, Consolas, monospace; background: rgba(255,255,255,.12); padding: .05em .4em; border-radius: 6px; }
+  /* ---------- wider layout on big screens (same as the main page) ---------- */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1160px; padding-left: 2.5rem; padding-right: 2.5rem; }
+    .lede { max-width: 60ch; }
+    .skybox { height: 280px; }
+    .scrollbox { height: 260px; }
+  }
+
+  /* ---------- footer (dead simple, pinned to the bottom of the page) ---------- */
+  body { display: flex; flex-direction: column; }
+  main.wrap { flex: 1; min-width: 0; width: 100%; padding-bottom: 2rem; }
+  .foot { width: 100%; padding-top: 0; padding-bottom: 1.4rem; text-shadow: 0 1px 12px rgba(20,16,60,.7); }
+  .foot .line { border-top: 1px solid rgba(255,255,255,.3); margin-bottom: 1.1rem; }
+  .foot-row { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; align-items: center; }
+  .fbrand { font-weight: 800; letter-spacing: -.01em; background: linear-gradient(95deg, #fff 30%, #ffd2a6 70%, #ff9fb8);
+    -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+  .foot nav { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
+  .foot nav a { color: #fff; font-weight: 700; text-decoration: none; }
+  .foot nav a:hover, .foot nav a:focus-visible { color: #ffd2a6; text-decoration: underline; text-underline-offset: 4px; }
+  .foot-note { margin: .6rem 0 0; font-size: .9rem; color: #ffd8b8; }
+</style>
+</head>
+<body>
+<div class="bg" aria-hidden="true">
+  <div class="stars"></div>
+  <div class="sunbox"><div class="sun"><i class="glow"></i><i class="disc"></i></div></div>
+  <svg class="ridge back" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 118 C80 84 160 84 250 108 S420 74 520 98 S700 118 800 94 S960 66 1070 96 S1250 112 1340 90 S1420 88 1440 94 V200 H0Z"/></svg>
+  <svg class="ridge front" viewBox="0 0 1440 200" preserveAspectRatio="none"><path d="M0 150 C120 118 200 162 320 138 S520 108 640 142 S860 170 980 134 S1230 106 1440 146 V200 H0Z"/></svg>
+</div>
+
+<main class="wrap" id="top">
+  <h1>Style test</h1>
+  <p class="lede">A scratchpad for keeping the look the same: background, buttons, grayed-out buttons, cards.</p>
+
+  <h2>Where to use this background</h2>
+  <p class="sub">The rule for the whole site.</p>
+  <div class="panel">
+    <h3>This background is the main background for every non-hub page</h3>
+    <p style="margin-top:.5rem">A <b>hub page</b> is a page that leads to other pages, like <code>index.html</code>. Hubs get the full hero: the long sunset gradient, drifting clouds, parallax, and the big title.</p>
+    <p style="margin-top:.6rem">Every <b>other page</b> (like <code>planecards.html</code> and this style test) uses the background behind this page: the fixed one-screen sunset with stars, the sun tucked behind the smooth hills, and the hills fading out at the bottom. It stays put while the content scrolls over it.</p>
+    <span class="label">Quick check</span>
+    <div class="row" style="gap:.6rem">
+      <span class="tag">index.html = hub</span><span class="tag">planecards.html = this background</span><span class="tag">styletest.html = this background</span><span class="tag">any new page = this background</span>
+    </div>
+  </div>
+
+  <h2>Buttons</h2>
+  <p class="sub">The chunky ones from the caution box. Hover and press them.</p>
+  <div class="panel">
+    <span class="label">Main colors</span>
+    <div class="row">
+      <button type="button" class="cbtn go">Continue anyway</button>
+      <button type="button" class="cbtn back">Take me back</button>
+      <button type="button" class="cbtn pink">Pink one</button>
+      <button type="button" class="cbtn purple">Purple one</button>
+    </div>
+    <span class="label">Small</span>
+    <div class="row">
+      <button type="button" class="cbtn small go">Small yellow</button>
+      <button type="button" class="cbtn small back">Small white</button>
+    </div>
+  </div>
+
+  <h2>Grayed out buttons</h2>
+  <p class="sub">Gray, see-through, dashed outline, no shadow, no jump. Click one to get the shake and toast.</p>
+  <div class="panel">
+    <div class="row">
+      <button type="button" class="cbtn go off" aria-disabled="true" data-name="Continue anyway">Continue anyway</button>
+      <button type="button" class="cbtn back off" aria-disabled="true" data-name="Take me back">Take me back</button>
+      <button type="button" class="cbtn pink off" aria-disabled="true" data-name="Pink one">Pink one</button>
+      <button type="button" class="cbtn purple" disabled>Truly disabled</button>
+    </div>
+  </div>
+
+  <h2>Cards</h2>
+  <p class="sub">The open card jumps on hover. The coming-soon ones are grayed out.</p>
+  <div class="grid">
+    <a class="card live" href="#top"><span class="emoji" aria-hidden="true">✈️</span><h3>Open card</h3><p>Gradient card that lifts and tilts when you hover it.</p><span class="status">Open</span></a>
+    <button class="card soon" type="button" aria-disabled="true" data-name="Coming soon card"><span class="emoji" aria-hidden="true">🌬️</span><h3>Coming soon card</h3><p>Gray, dashed, not allowed.</p><span class="status">Coming soon</span></button>
+    <button class="card soon" type="button" aria-disabled="true" data-name="Another one"><span class="emoji" aria-hidden="true">🔭</span><h3>Another one</h3><p>Click it for the shake.</p><span class="status">Coming soon</span></button>
+  </div>
+
+  <h2>Text and the title gradient</h2>
+  <p class="sub">The gradient is on the big title: white, peach, pink, peach, white, slowly shimmering. In the main page it's the <code>h1</code> rule.</p>
+  <div class="panel">
+    <span class="label">Brand label</span><p class="brand">planes, but fun</p>
+    <span class="label">Title gradient</span><p class="gradtext">All about planes</p>
+    <span class="label">Heading</span><p style="margin:0;font-size:1.9rem;font-weight:700;letter-spacing:-.01em;color:#fff">Pick where to start</p>
+    <span class="label">Subtitle</span><p style="margin:0;color:#efe9ff">Plane cards are open. The rest are on the way.</p>
+    <span class="label">Tip text</span><p class="tip">Psst: click the plane.</p>
+  </div>
+
+  <h2>Boxes</h2>
+  <p class="sub">A glass box with a header, and the white caution-style box with the chunky border.</p>
+  <div class="boxes">
+    <div class="panel"><h3>Glass box</h3><p>Dark see-through box with a soft blur. Good for any group of content with a header on top.</p></div>
+    <div class="cdialog"><div class="cemoji" aria-hidden="true">🚧</div><h3>Proceed with caution?</h3><p>White box, thick black border, hard shadow.</p>
+      <div class="row"><button type="button" class="cbtn small go">Continue</button><button type="button" class="cbtn small back">Back</button></div></div>
+  </div>
+  <div class="tape" aria-hidden="true"><span>&#9888;&#xFE0E; Under construction &#9888;&#xFE0E; Caution tape strip</span></div>
+
+  <h2>Clouds and planes</h2>
+  <p class="sub">Soft drifting clouds, twinkly stars and a far-away plane with its trail.</p>
+  <div class="skybox" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="cloud c4"></div>
+    <div class="far" style="top:28px"><span class="far-trail"></span><svg class="far-plane" viewBox="1 5 21.5 14.5"><path d="M2 11.5H1.5H2ZM15.8737 13.8322C16.0572 13.6258 16.0386 13.3098 15.8322 13.1263C15.6258 12.9428 15.3098 12.9614 15.1263 13.1678L15.8737 13.8322ZM11.5 18L11.8536 18.3535L11.8639 18.3431L11.8737 18.3322L11.5 18ZM10.382 18.5528V19.0528H10.4033L10.4245 19.0509L10.382 18.5528ZM11.3938 13.7812C11.5491 13.5529 11.49 13.2419 11.2616 13.0866C11.0333 12.9313 10.7223 12.9905 10.567 13.2188L11.3938 13.7812ZM11.2995 6.41181L10.8951 6.70589V6.70589L11.2995 6.41181ZM8.80665 7.47883L9.24559 7.2394L8.80665 7.47883ZM4.87907 7.61492L4.41762 7.80745L4.87907 7.61492ZM5.2119 14.7848L5.0262 15.249L5.2119 14.7848ZM8.51673 17.1219L8.10331 16.8407L8.51673 17.1219ZM8.40385 17.3707L8.89522 17.4632L8.40385 17.3707ZM21.2764 14.0528L20.8292 14.2764L21.2764 14.0528ZM20.1056 12.8292L20.8292 14.2764L21.7236 13.8292L21 12.3819L20.1056 12.8292ZM5.3976 14.3205L2.8143 13.2872L2.44291 14.2157L5.0262 15.249L5.3976 14.3205ZM2.5 12.8229V11.5H1.5V12.8229H2.5ZM2.5 11.5V7.99998H1.5V11.5H2.5ZM3 7.49998H3.95617V6.49998H3V7.49998ZM4.41762 7.80745L5.78198 11.0776L6.70488 10.6925L5.34052 7.4224L4.41762 7.80745ZM7.16632 12H18.7639V11H7.16632V12ZM15.1263 13.1678L11.1263 17.6678L11.8737 18.3322L15.8737 13.8322L15.1263 13.1678ZM10.382 18.0528H9.38743V19.0528H10.382V18.0528ZM8.93015 17.4031L11.3938 13.7812L10.567 13.2188L8.10331 16.8407L8.93015 17.4031ZM9.38743 18.0528C9.07074 18.0528 8.83871 17.7634 8.89522 17.4632L7.91249 17.2782C7.7421 18.1831 8.43325 19.0528 9.38743 19.0528V18.0528ZM11.1464 17.6464C10.8691 17.9237 10.8114 17.9723 10.7636 17.9959C10.7279 18.0135 10.6849 18.0251 10.3394 18.0546L10.4245 19.0509C10.6971 19.0277 10.9631 19.0128 11.2069 18.8923C11.4386 18.7777 11.6309 18.5762 11.8536 18.3535L11.1464 17.6464ZM20.382 15H13.5V16H20.382V15ZM9.61997 15H8.92585V16H9.61997V15ZM15.4044 11.2059L11.7039 6.11772L10.8951 6.70589L14.5956 11.7941L15.4044 11.2059ZM10.4908 5.49998H9.68454V6.49998H10.4908V5.49998ZM8.3677 7.71826L10.5611 11.7394L11.4389 11.2606L9.24559 7.2394L8.3677 7.71826ZM9.68454 5.49998C8.54595 5.49998 7.82248 6.71869 8.3677 7.71826L9.24559 7.2394C9.06386 6.90622 9.30501 6.49998 9.68454 6.49998V5.49998ZM11.7039 6.11772C11.4216 5.7296 10.9707 5.49998 10.4908 5.49998V6.49998C10.6507 6.49998 10.8011 6.57652 10.8951 6.70589L11.7039 6.11772ZM5.78198 11.0776C6.01505 11.6362 6.56103 12 7.16632 12V11C6.96456 11 6.78257 10.8787 6.70488 10.6925L5.78198 11.0776ZM3.95617 7.49998C4.15794 7.49998 4.33993 7.62124 4.41762 7.80745L5.34052 7.4224C5.10745 6.86378 4.56147 6.49998 3.95617 6.49998V7.49998ZM2.8143 13.2872C2.62447 13.2113 2.5 13.0274 2.5 12.8229H1.5C1.5 13.4363 1.87342 13.9879 2.44291 14.2157L2.8143 13.2872ZM5.0262 15.249C6.26648 15.7451 7.59003 16 8.92585 16V15C7.71725 15 6.51975 14.7694 5.3976 14.3205L5.0262 15.249ZM8.10331 16.8407C8.03475 16.9415 7.94787 17.0903 7.91249 17.2782L8.89522 17.4632C8.8943 17.4681 8.89394 17.4659 8.89909 17.4551C8.90444 17.4438 8.91383 17.4271 8.93015 17.4031L8.10331 16.8407ZM20.8292 14.2764C20.9954 14.6088 20.7537 15 20.382 15V16C21.497 16 22.2223 14.8265 21.7236 13.8292L20.8292 14.2764ZM2.5 7.99998C2.5 7.72383 2.72386 7.49998 3 7.49998V6.49998C2.17157 6.49998 1.5 7.17155 1.5 7.99998H2.5ZM21 12.3819C20.5765 11.535 19.7109 11 18.7639 11V12C19.3321 12 19.8515 12.321 20.1056 12.8292L21 12.3819Z" fill="#fff"/></svg></div>
+  </div>
+
+  <h2>Scrollbar</h2>
+  <p class="sub">Same scrollbar as the main page (purple, pink and orange thumb on a dark track). Scroll inside the box.</p>
+  <div class="scrollbox" tabindex="0" aria-label="Scrollbar demo">
+    <p>The thumb is a rounded gradient that matches the sunset. The track is the dark navy from the top of the sky.</p>
+    <p>Hover the thumb and it gets a little fatter. This page's own scrollbar on the right uses the exact same style.</p>
+    <p>Concorde cruised at twice the speed of sound, crossing the Atlantic in under three and a half hours.</p>
+    <p>The SR-71 Blackbird flew so high and fast that it could outrun missiles fired at it.</p>
+    <p>The Boeing 747 had a hump on top so the cockpit could swing up and let cargo load through the nose.</p>
+    <p>Keep scrolling... the box has more text than room, so the bar shows up.</p>
+    <p>That's the end. Nice.</p>
+  </div>
+  <pre class="code">/* put these in your CSS to get the same scrollbar */
+::-webkit-scrollbar { width: 14px; height: 14px; }
+::-webkit-scrollbar-track { background: #14123d; border-left: 1px solid rgba(255,255,255,.08); }
+::-webkit-scrollbar-thumb { border-radius: 999px; border: 3px solid #14123d; background-clip: padding-box;
+  background-image: linear-gradient(180deg, #c58bff 0%, #ff9fb8 55%, #ffb77a 100%); min-height: 48px; }
+::-webkit-scrollbar-thumb:hover { border-width: 2px; }
+/* Firefox */
+html { scrollbar-width: thin; scrollbar-color: #ff9fb8 #14123d; }</pre>
+
+  <h2>Colors</h2>
+  <p class="sub">The palette in use.</p>
+  <div class="panel swatches">
+    <div class="sw"><b style="background:#14123d"></b>#14123d</div>
+    <div class="sw"><b style="background:#3b2a85"></b>#3b2a85</div>
+    <div class="sw"><b style="background:#a1458f"></b>#a1458f</div>
+    <div class="sw"><b style="background:#ec7b86"></b>#ec7b86</div>
+    <div class="sw"><b style="background:#ffd2a6"></b>#ffd2a6</div>
+    <div class="sw"><b style="background:#ff9fb8"></b>#ff9fb8</div>
+    <div class="sw"><b style="background:#c58bff"></b>#c58bff</div>
+    <div class="sw"><b style="background:#FFD21F"></b>#FFD21F</div>
+  </div>
+  <h2>Footer</h2>
+  <p class="sub">Dead simple: a thin line, the name, a few links and one line of text. It always sits at the very bottom of the page.</p>
+</main>
+<footer class="wrap foot">
+  <div class="line" aria-hidden="true"></div>
+  <div class="foot-row">
+    <span><span aria-hidden="true">✈️</span> <span class="fbrand">All about planes</span></span>
+    <nav aria-label="Footer"><a href="/">Home</a><a href="/info">About</a><a href="#top">Back to top</a></nav>
+  </div>
+  <p class="foot-note">A work in progress.</p>
+</footer>
+
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+  var toast = document.getElementById('toast'), timer;
+  document.querySelectorAll('[aria-disabled="true"]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      el.classList.remove('nudge'); void el.offsetWidth; el.classList.add('nudge');
+      toast.textContent = el.dataset.name + ' is coming soon'; toast.classList.add('show');
+      clearTimeout(timer); timer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+    });
+    el.addEventListener('animationend', function () { el.classList.remove('nudge'); });
+  });
+</script>
+</body>
+</html>
