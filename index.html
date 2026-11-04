@@ -81,7 +81,6 @@
     transition: opacity .25s ease, transform .25s ease; }
   .toast.show { opacity: 1; transform: translate(-50%, 0); }
   main { padding-bottom: 1rem; }
-  footer { color: #4a1f45; font-size: .95rem; padding: 4rem 0 2.5rem; font-weight: 500; }
 
   @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .hero { padding-bottom: 9rem; } }
   @media (prefers-reduced-motion: reduce) {
@@ -231,6 +230,18 @@
     -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
   .sunbox .sun { bottom: 0; }
   .sun .disc { -webkit-mask-image: none; mask-image: none; }
+  /* ---------- footer (same layout as styletest; night-navy ink for readability on the orange sky) ---------- */
+  body { display: flex; flex-direction: column; }
+  main.wrap { flex: 1; min-width: 0; width: 100%; padding-bottom: 2rem; }
+  .foot { width: 100%; padding-top: 1rem; padding-bottom: 1.4rem; text-shadow: 0 1px 10px rgba(255,214,170,.55); }
+  .foot .line { border-top: 2px solid rgba(20,18,61,.5); margin-bottom: 1.1rem; }
+  .foot-row { display: flex; flex-wrap: wrap; gap: .5rem 2rem; justify-content: space-between; align-items: center; }
+  .fbrand { font-weight: 800; letter-spacing: -.01em; background: linear-gradient(95deg, #14123d 30%, #3b2a85 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent; text-shadow: none; }
+  .foot nav { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; }
+  .foot nav a { color: #14123d; font-weight: 700; text-decoration: none; }
+  .foot nav a:hover, .foot nav a:focus-visible { color: #3b2a85; text-decoration: underline; text-underline-offset: 4px; }
+  .foot-note { margin: .6rem 0 0; font-size: .9rem; font-weight: 500; color: #2a1d6b; }
 </style>
 </head>
 <body>
@@ -282,8 +293,15 @@
     <button class="card soon" type="button" aria-disabled="true" data-name="Spotter's guide"><span class="emoji" aria-hidden="true">🔭</span><h3>Spotter's guide</h3><p>Tell a 737 from an A320 at a glance.</p><span class="status">Coming soon</span></button>
     <button class="card soon" type="button" aria-disabled="true" data-name="Records and weird planes"><span class="emoji" aria-hidden="true">🏆</span><h3>Records and weird planes</h3><p>The fastest, biggest, and strangest ever built.</p><span class="status">Coming soon</span></button>
   </div>
-  <footer>A work in progress.</footer>
 </main>
+<footer class="wrap foot">
+  <div class="line" aria-hidden="true"></div>
+  <div class="foot-row">
+    <span><span aria-hidden="true">✈️</span> <span class="fbrand">All about planes</span></span>
+    <nav aria-label="Footer"><a href="/info">About</a></nav>
+  </div>
+  <p class="foot-note">A work in progress.</p>
+</footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
